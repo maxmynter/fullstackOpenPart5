@@ -3,6 +3,7 @@ import BlogsView from "./components/BlogsView";
 import blogService from "./services/blogs";
 import LoginForm from "./components/LoginForm";
 import DisplayMessage from "./components/MessageDisplay";
+import CreateNewBlog from "./components/CreateNewBlog";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -10,7 +11,6 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -21,14 +21,18 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
-      //noteService.setToken(user.token);
     }
   }, []);
 
   return (
     <div>
       {errorMessage ? <DisplayMessage message={errorMessage} /> : null}
-      {user && <BlogsView blogs={blogs} />}
+      {user != null && (
+        <>
+          <BlogsView blogs={blogs} />
+          <CreateNewBlog />
+        </>
+      )}
       <LoginForm
         username={username}
         setUsername={setUsername}

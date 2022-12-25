@@ -1,4 +1,5 @@
 import loginService from "../services/login";
+import blogService from "../services/blogs";
 
 const LoginForm = ({
   username,
@@ -16,6 +17,7 @@ const LoginForm = ({
       const user = await loginService.login({ username, password });
       window.localStorage.setItem("loggedBlogAppUser", JSON.stringify(user));
       setUser(user);
+      blogService.setToken(user.token);
       setUsername("");
       setPassword("");
     } catch (exception) {
@@ -32,9 +34,10 @@ const LoginForm = ({
   };
   if (user) {
     return (
-      <>
+      <div>
+        {user.name} is logged in
         <button onClick={handleLogout}>Logout</button>
-      </>
+      </div>
     );
   } else {
     return (
