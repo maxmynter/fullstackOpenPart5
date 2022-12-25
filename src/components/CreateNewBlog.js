@@ -9,8 +9,9 @@ const CreateNewBlog = ({ setMessage, setBlogs }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const response = await blogService.addBlog({ title, author, url });
+    console.log(response);
     setBlogs(await blogService.getAll());
-    setMessage(response.text);
+    setMessage(`${response.statusText}`);
     setTimeout(() => {
       setMessage(null);
     }, 5000);
