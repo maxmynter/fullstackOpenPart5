@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import BlogsView from "./components/BlogsView";
 import blogService from "./services/blogs";
 import LoginForm from "./components/LoginForm";
+import DisplayMessage from "./components/MessageDisplay";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -16,7 +17,7 @@ const App = () => {
 
   return (
     <div>
-      {errorMessage ? errorMessage : null}
+      {errorMessage ? <DisplayMessage message={errorMessage} /> : null}
       {user ? (
         <BlogsView blogs={blogs} />
       ) : (
