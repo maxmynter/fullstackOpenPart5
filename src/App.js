@@ -7,7 +7,7 @@ import CreateNewBlog from "./components/CreateNewBlog";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -21,16 +21,17 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
+      blogService.setToken(user.token);
     }
   }, []);
 
   return (
     <div>
-      {errorMessage ? <DisplayMessage message={errorMessage} /> : null}
+      {message ? <DisplayMessage message={message} /> : null}
       {user != null && (
         <>
           <BlogsView blogs={blogs} />
-          <CreateNewBlog />
+          <CreateNewBlog setMessage={setMessage} setBlogs={setBlogs} />
         </>
       )}
       <LoginForm
@@ -40,7 +41,7 @@ const App = () => {
         setPassword={setPassword}
         user={user}
         setUser={setUser}
-        setErrorMessage={setErrorMessage}
+        setErrorMessage={setMessage}
       />
     </div>
   );
