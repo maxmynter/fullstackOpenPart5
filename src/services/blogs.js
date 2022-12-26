@@ -20,7 +20,6 @@ const addBlog = async (newEntry) => {
 
 const updateBlog = async (blog) => {
   const request = await axios.put(baseUrl + `/${blog.id}`, blog);
-  console.log(request);
   return request;
 };
 
