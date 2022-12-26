@@ -18,4 +18,10 @@ const addBlog = async (newEntry) => {
   return request;
 };
 
-export default { setToken, getAll, addBlog };
+const updateBlog = async (blog) => {
+  const request = await axios.put(baseUrl + `/${blog.id}`, blog);
+  console.log(request);
+  return request;
+};
+
+export default { setToken, getAll, addBlog, updateBlog };
