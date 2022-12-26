@@ -37,7 +37,7 @@ const App = () => {
       {message ? <DisplayMessage message={message} /> : null}
       {user != null && (
         <>
-          <BlogsView blogs={blogs} />
+          <BlogsView blogs={blogs} user={user} />
           <Togglable buttonLabel="Create Entry" ref={addBlogRef}>
             <CreateNewBlog
               setMessage={setMessage}
