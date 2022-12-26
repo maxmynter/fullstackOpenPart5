@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import loginService from "../services/login";
 import blogService from "../services/blogs";
 
@@ -50,6 +51,15 @@ const LoginForm = ({
       <button type="submit">login</button>
     </form>
   );
+};
+
+LoginForm.propTypes = {
+  username: PropTypes.string.isRequired,
+  setUsername: PropTypes.func.isRequired,
+  password: PropTypes.string.isRequired,
+  setPassword: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
+  setErrorMessage: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
