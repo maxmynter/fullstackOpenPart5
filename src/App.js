@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import BlogsView from "./components/BlogsView";
 import blogService from "./services/blogs";
 import LoginForm from "./components/LoginForm";
 import DisplayMessage from "./components/MessageDisplay";
 import CreateNewBlog from "./components/CreateNewBlog";
+import Togglable from "./components/Toggleable";
+import Logout from "./components/Logout";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -25,24 +27,37 @@ const App = () => {
     }
   }, []);
 
+  const addBlogRef = useRef();
+  const toggleTogglable = () => {
+    addBlogRef.current.toggleVisibility();
+  };
+
   return (
     <div>
       {message ? <DisplayMessage message={message} /> : null}
       {user != null && (
         <>
           <BlogsView blogs={blogs} />
-          <CreateNewBlog setMessage={setMessage} setBlogs={setBlogs} />
+          <Togglable buttonLabel="Create Entry" ref={addBlogRef}>
+            <CreateNewBlog
+              setMessage={setMessage}
+              setBlogs={setBlogs}
+              toggleParentVisibility={toggleTogglable}
+            />
+          </Togglable>
         </>
       )}
-      <LoginForm
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
-        user={user}
-        setUser={setUser}
-        setErrorMessage={setMessage}
-      />
+      {user == null && (
+        <LoginForm
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          setUser={setUser}
+          setErrorMessage={setMessage}
+        />
+      )}
+      {user && <Logout user={user} setUser={setUser} />}
     </div>
   );
 };
