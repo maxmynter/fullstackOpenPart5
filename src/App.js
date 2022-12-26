@@ -35,7 +35,7 @@ const App = () => {
   return (
     <div>
       {message ? <DisplayMessage message={message} /> : null}
-      {user != null && (
+      {user !== null && (
         <>
           <BlogsView blogs={blogs} user={user} />
           <Togglable buttonLabel="Create Entry" ref={addBlogRef}>
@@ -47,7 +47,7 @@ const App = () => {
           </Togglable>
         </>
       )}
-      {user == null && (
+      {user === null && (
         <LoginForm
           username={username}
           setUsername={setUsername}
