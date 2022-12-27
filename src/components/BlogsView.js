@@ -2,6 +2,10 @@ import Togglable from "./Toggleable";
 import blogService from "../services/blogs";
 import { useState } from "react";
 
+const LikeButton = ({ onClickHandler }) => (
+  <button onClick={onClickHandler}>Like</button>
+);
+
 const Blog = ({ blog, canDelete }) => {
   const [likes, setLikes] = useState(blog.likes);
   const [deleted, setDeleted] = useState(false);
@@ -37,14 +41,12 @@ const Blog = ({ blog, canDelete }) => {
             <div>URL: {blog.url}</div>
             <div>
               Likes: {likes}{" "}
-              <button
-                onClick={() => {
+              <LikeButton
+                onClickHandler={() => {
                   updateLikesinBackend();
                   setLikes(likes + 1);
                 }}
-              >
-                Like
-              </button>
+              />
             </div>
             <div>Creator: {blog.creator.name}</div>
             {canDelete && (
