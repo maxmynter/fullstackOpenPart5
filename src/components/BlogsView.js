@@ -76,4 +76,4 @@ const BlogsView = ({ blogs, user }) => {
   );
 };
 
-export { BlogsView, Blog };
+export { BlogsView, Blog, LikeButton };

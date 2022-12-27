@@ -2,7 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Blog } from "./BlogsView";
+import { Blog, LikeButton } from "./BlogsView";
 
 const blogEntry = {
   title: "Fancy Title",
@@ -39,4 +39,15 @@ test("Blog url and number of likes are only shown after View Details is pressed"
   let likes = await screen.queryByText("Likes");
   expect(titleURL).toBeDefined();
   expect(likes).toBeDefined();
+});
+
+test("If like Button is clicked twice, the likes function is called twice", async () => {
+  const mockHandler = jest.fn();
+  const user = userEvent.setup();
+  render(<LikeButton onClickHandler={mockHandler} />);
+
+  const button = screen.getByText("Like");
+  await user.click(button);
+  await user.click(button);
+  expect(mockHandler.mock.calls).toHaveLength(2);
 });
