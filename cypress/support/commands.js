@@ -29,10 +29,17 @@ Cypress.Commands.add("addAndLogin", ({ username, name, password }) => {
     username,
     name,
     password,
-  }).then((response) => {
-    localStorage.setItem("loggedBlogAppUser", JSON.stringify(response.body));
-    cy.visit("http://localhost:3000");
-  });
+  })
+    .then(() => {
+      cy.request("POST", "http://localhost:3003/api/testing/login", {
+        username,
+        password,
+      });
+    })
+    .then((response) => {
+      localStorage.setItem("loggedBlogAppUser", JSON.stringify(response.body));
+      cy.visit("http://localhost:3000");
+    });
 });
 
 Cypress.Commands.add("addUser", ({ username, name, password }) => {
