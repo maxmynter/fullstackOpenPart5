@@ -13,7 +13,7 @@ describe("Blog app", function () {
     cy.visit("http://localhost:3000");
   });
 
-  it("Login form is shown", function () {
+  it("Login form is shown as default", function () {
     cy.contains("Username");
     cy.contains("Password");
     cy.contains("Login");
