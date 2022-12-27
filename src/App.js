@@ -43,6 +43,7 @@ const App = () => {
               setMessage={setMessage}
               setBlogs={setBlogs}
               toggleParentVisibility={toggleTogglable}
+              createNewBlogEntry={blogService.addBlog}
             />
           </Togglable>
         </>

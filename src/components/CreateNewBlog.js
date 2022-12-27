@@ -1,14 +1,19 @@
 import { useState } from "react";
 import blogService from "../services/blogs";
 
-const CreateNewBlog = ({ setMessage, setBlogs, toggleParentVisibility }) => {
+const CreateNewBlog = ({
+  setMessage,
+  setBlogs,
+  toggleParentVisibility,
+  createNewBlogEntry,
+}) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setURL] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await blogService.addBlog({ title, author, url });
+    const response = await createNewBlogEntry({ title, author, url });
     setBlogs(await blogService.getAll());
     setMessage(`${response.statusText}`);
     toggleParentVisibility();
@@ -19,6 +24,7 @@ const CreateNewBlog = ({ setMessage, setBlogs, toggleParentVisibility }) => {
     setAuthor("");
     setURL("");
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <h2>Create New Entry </h2>
