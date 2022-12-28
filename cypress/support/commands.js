@@ -47,6 +47,20 @@ Cypress.Commands.add("addUser", ({ username, name, password }) => {
     username,
     name,
     password,
+  }).then(() => {
+    cy.visit("http://localhost:3000");
   });
-  cy.visit("http://localhost:3000");
+});
+
+Cypress.Commands.add("postBlog", ({ title, author, url, token }) => {
+  cy.request({
+    method: "POST",
+    url: "http://localhost:3003/api/testing/blog",
+    body: {
+      title,
+      author,
+      url,
+    },
+    headers: { authorization: `bearer ${token}` },
+  });
 });

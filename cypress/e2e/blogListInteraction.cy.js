@@ -13,4 +13,31 @@ describe("Blog app", function () {
     cy.contains("Blog Title");
     cy.contains("Blog Author");
   });
+
+  it("Can like blog", function () {
+    const user = JSON.parse(localStorage.getItem("loggedBlogAppUser"));
+    cy.postBlog({
+      title: "New Blog",
+      author: "Me",
+      url: "williiee.de",
+      token: user.token,
+    });
+    cy.visit("http://localhost:3000");
+    cy.get("#toggableButotn").click();
+    cy.contains("Likes: 0");
+    cy.get("#likeButton").click();
+    cy.contains("Likes: 1");
+  });
+
+  it("User who has created blog can delete", function () {
+    const user = JSON.parse(localStorage.getItem("loggedBlogAppUser"));
+    cy.postBlog({
+      title: "New Blog",
+      author: "Me",
+      url: "williiee.de",
+      token: user.token,
+    });
+    cy.visit("http://localhost:3000");
+    cy.get("#toggableButotn").click();
+  });
 });

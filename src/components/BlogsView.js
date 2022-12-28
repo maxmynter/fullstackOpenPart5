@@ -3,7 +3,9 @@ import blogService from "../services/blogs";
 import { useState } from "react";
 
 const LikeButton = ({ onClickHandler }) => (
-  <button onClick={onClickHandler}>Like</button>
+  <button id="likeButton" onClick={onClickHandler}>
+    Like
+  </button>
 );
 
 const Blog = ({ blog, canDelete }) => {
