@@ -68,4 +68,34 @@ describe("Blog app", function () {
     cy.get("#toggableButton").click();
     cy.get("#deleteButton").should("not.exist");
   });
+
+  it("Shows the blogs sorted by number of likes", function () {
+    const user = JSON.parse(localStorage.getItem("loggedBlogAppUser"));
+    cy.postBlog({
+      title: "One Like",
+      author: "Me",
+      url: "williiee.de",
+      token: user.token,
+    });
+    cy.visit("http://localhost:3000");
+    cy.contains("One Like").find("#toggableButton").click();
+    cy.get("#likeButton").click();
+
+    cy.postBlog({
+      title: "Two Like",
+      author: "Me",
+      url: "williiee.de",
+      token: user.token,
+    });
+    cy.visit("http://localhost:3000");
+    cy.contains("Two Like").find("#toggableButton").click();
+    cy.contains("Two Like").find("#likeButton").click();
+    cy.contains("Two Like").find("#likeButton").click();
+
+    cy.visit("http://localhost:3000");
+    cy.contains("One Like");
+    cy.contains("Two Like");
+    cy.get(".blog").eq(0).should("contain", "Two Like");
+    cy.get(".blog").eq(1).should("contain", "One Like");
+  });
 });

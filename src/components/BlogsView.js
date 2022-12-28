@@ -37,7 +37,7 @@ const Blog = ({ blog, canDelete }) => {
   return (
     <>
       {!deleted && (
-        <div style={blogStyle}>
+        <div className="blog" style={blogStyle}>
           {blog.title} {blog.author}
           <Togglable buttonLabel="View Details" hideLabel="Hide">
             <div>URL: {blog.url}</div>
