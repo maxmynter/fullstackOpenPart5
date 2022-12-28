@@ -52,7 +52,9 @@ const Blog = ({ blog, canDelete }) => {
             </div>
             <div>Creator: {blog.creator.name}</div>
             {canDelete && (
-              <button onClick={() => onClickDelete(blog)}>Delete</button>
+              <button id="deleteButton" onClick={() => onClickDelete(blog)}>
+                Delete
+              </button>
             )}
           </Togglable>
         </div>

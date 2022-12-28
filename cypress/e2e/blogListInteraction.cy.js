@@ -23,7 +23,8 @@ describe("Blog app", function () {
       token: user.token,
     });
     cy.visit("http://localhost:3000");
-    cy.get("#toggableButotn").click();
+    cy.contains("New Blog");
+    cy.get("#toggableButton").click();
     cy.contains("Likes: 0");
     cy.get("#likeButton").click();
     cy.contains("Likes: 1");
@@ -38,6 +39,9 @@ describe("Blog app", function () {
       token: user.token,
     });
     cy.visit("http://localhost:3000");
-    cy.get("#toggableButotn").click();
+    cy.contains("New Blog");
+    cy.get("#toggableButton").click();
+    cy.get("#deleteButton").click();
+    cy.get("#deleteButton").should("not.exist");
   });
 });
