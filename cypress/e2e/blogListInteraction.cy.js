@@ -44,4 +44,28 @@ describe("Blog app", function () {
     cy.get("#deleteButton").click();
     cy.get("#deleteButton").should("not.exist");
   });
+
+  it("Other users cannot delete blog", function () {
+    const user = JSON.parse(localStorage.getItem("loggedBlogAppUser"));
+    cy.postBlog({
+      title: "New Blog",
+      author: "Me",
+      url: "williiee.de",
+      token: user.token,
+    });
+
+    cy.get("#logoutButton").click();
+
+    console.log("IN JUICE");
+    cy.addAndLogin({
+      name: "another",
+      username: "another",
+      password: "another",
+    });
+
+    cy.visit("http://localhost:3000");
+    cy.contains("New Blog");
+    cy.get("#toggableButton").click();
+    cy.get("#deleteButton").should("not.exist");
+  });
 });

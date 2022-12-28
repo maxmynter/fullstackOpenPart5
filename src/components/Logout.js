@@ -6,7 +6,9 @@ const Logout = ({ user, setUser }) => {
   return (
     <div>
       {user.name} is logged in
-      <button onClick={handleLogout}>Logout</button>
+      <button id="logoutButton" onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 };
